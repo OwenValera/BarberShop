@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Appointments</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Manage Appointments</h1>
+            <nav>
+                <ul>
+                    <li><a href="admin.html">Dashboard</a></li>
+                    <li><a href="app.html">Appointments</a></li>
+                    <li><a href="ser.html">Services</a></li>
+                    
+                    <li><a href="test.html">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer Name</th>
+                        <th>Email</th>
+                        <th>Service</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Jimmy Favian</td>
+                        <td>favianjimmy@example.com</td>
+                        <td>Haircut</td>
+                        <td>2023-10-15</td>
+                        <td>10:00 AM</td>
+                        <td>Confirmed</td>
+                        <td>
+                            <button class="delete-btn">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Kyle Kong</td>
+                        <td>kylekong@example.com</td>
+                        <td>Shave</td>
+                        <td>2023-10-16</td>
+                        <td>11:00 AM</td>
+                        <td>Cancelled</td>
+                        <td>
+                            <button class="delete-btn">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Barbershop. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

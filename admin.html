@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbershop Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Barbershop Admin Dashboard</h1>
+            <nav>
+                <ul>
+                    <li><a href="admin.html">Dashboard</a></li>
+                    <li><a href="app.html">Appointments</a></li>
+                    <li><a href="ser.html">Services</a></li>
+                    
+                    <li><a href="test.html">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="appointments">
+                <h2>Manage Appointments</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer Name</th>
+                            <th>Service</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Jimmy Favian</td>
+                            <td>Haircut</td>
+                            <td>2023-10-15</td>
+                            <td>10:00 AM</td>
+                            <td>Confirmed</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Kyle Kong</td>
+                            <td>Shave</td>
+                            <td>2023-10-16</td>
+                            <td>11:00 AM</td>
+                            <td>Cancelled</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="services">
+                <h2>Manage Services</h2>
+                <form>
+                    <label for="service-name">Service Name:</label>
+                    <input type="text" id="service-name" required>
+                    <label for="service-price">Price:</label>
+                    <input type="number" id="service-price" required>
+                    <button type="submit">Add Service</button>
+                </form>
+                <ul>
+                    <li>Haircut - $20</li>
+                    <li>Shave - $15</li>
+                </ul>
+            </section>
+
+            <section id="customers">
+                <h2>Manage Customers</h2>
+                <ul>
+                    <li>Jimmy favian - jimmyfavian@example.com</li>
+                    <li>Kyle Kong - kylekong@example.com</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Barbershop. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

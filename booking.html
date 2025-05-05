@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book an Appointment</title>
+    <link rel="stylesheet" href="book.css">
+</head>
+<body>
+    <div class="booking-container">
+        <h2>Book an Appointment</h2>
+        <form id="bookingForm" onsubmit="return handleBooking(event)">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="service">Service:</label>
+            <select id="service" required>
+                <option value="haircut">Haircut</option>
+                <option value="shave">Shave</option>
+                <option value="beard trim">Beard Trim</option>
+                <option value="facial">Haircut and Shave</option>
+            </select>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" required>
+
+            <label for="time">Time:</label>
+            <input type="time" id="time" required>
+
+            <button type="submit">Book Appointment</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

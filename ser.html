@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Services</title>
+    <link rel="stylesheet" href="ser.css">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .edit-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+        form {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Manage Services</h1>
+            <nav>
+                <ul>
+                    <li><a href="admin.html">Dashboard</a></li>
+                    <li><a href="app.html">Appointments</a></li>
+                    <li><a href="ser.html">Services</a></li>
+                    <li><a href="test.html">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <form id="serviceForm">
+                <label for="service-name">Service Name:</label>
+                <input type="text" id="service-name" required>
+
+                <label for="service-price">Price:</label>
+                <input type="number" id="service-price" step="0.01" required>
+
+                <button type="submit">Add Service</button>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Service Name</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="service-list">
+                    <!-- Services will be loaded here dynamically -->
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Barbershop. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Global variable to track if we're editing
+        let editingId = null;
+
+        // Load services when page loads
+        document.addEventListener('DOMContentLoaded', loadServices);
+
+        // Form submission handler
+        document.getElementById('serviceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('service-name').value;
+            const price = parseFloat(document.getElementById('service-price').value);
+            
+            if (editingId) {
+                updateService(editingId, name, price);
+            } else {
+                addService(name, price);
+            }
+        });
+
+        // Load services from database
+        function loadServices() {
+            fetch('services.php')
+                .then(response => response.json())
+                .then(data => {
+                    const serviceList = document.getElementById('service-list');
+                    serviceList.innerHTML = '';
+                    
+                    data.forEach(service => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${service.id}</td>
+                            <td>${service.name}</td>
+                            <td>Php.${service.price.toFixed(2)}</td>
+                            <td>
+                                <button class="edit-btn" onclick="editService(${service.id}, '${service.name}', ${service.price})">Edit</button>
+                                <button class="delete-btn" onclick="deleteService(${service.id})">Delete</button>
+                            </td>
+                        `;
+                        serviceList.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Add new service
+        function addService(name, price) {
+            fetch('services.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({name, price}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    resetForm();
+                    loadServices();
+                } else {
+                    alert('Error adding service');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Edit service - populate form
+        function editService(id, name, price) {
+            editingId = id;
+            document.getElementById('service-name').value = name;
+            document.getElementById('service-price').value = price;
+            document.querySelector('#serviceForm button[type="submit"]').textContent = 'Update Service';
+        }
+
+        // Update service
+        function updateService(id, name, price) {
+            fetch('services.php', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({id, name, price}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    resetForm();
+                    loadServices();
+                } else {
+                    alert('Error updating service');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Delete service
+        function deleteService(id) {
+            if (confirm('Are you sure you want to delete this service?')) {
+                fetch(`services.php?id=${id}`, {
+                    method: 'DELETE',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        loadServices();
+                    } else {
+                        alert('Error deleting service');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        // Reset form after submission
+        function resetForm() {
+            document.getElementById('serviceForm').reset();
+            editingId = null;
+            document.querySelector('#serviceForm button[type="submit"]').textContent = 'Add Service';
+        }
+    </script>
+</body>
+</html>

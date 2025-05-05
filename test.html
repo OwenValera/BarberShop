@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="tyle.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <i class='bx bxs-lock-alt' ></i>
+            </div>
+
+            <div class="remember-forgot">
+                <label><input type="checkbox"> Remember me</label>
+                <a href="#">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn">Login</button>
+
+            <div class="register-link">
+                <p>Don't have an account? <a
+                    href="#">Register</a></p>
+            </div>
+                
+        </form>
+        <div id="message" class="message"></div>
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    // Hardcoded credentials for demonstration
+    const adminCredentials = {
+        username: 'admin',
+        password: '1234'
+    };
+
+    const userCredentials = {
+        username: 'user',
+        password: '1234'
+    };
+
+    // Check credentials
+    if (username === adminCredentials.username && password === adminCredentials.password) {
+      
+        // Redirect to admin dashboard
+        window.location.href = 'admin.html'; // Replace with your admin page URL
+    } else if (username === userCredentials.username && password === userCredentials.password) {
+       
+        // Redirect to user dashboard
+        window.location.href = 'index.html'; // Replace with your user page URL
+    } else {
+        document.getElementById('message').innerText = 'Invalid username or password';
+    }
+});
+    </script>
+    <script src="test.js"></script>
+</body>
+</html>
